@@ -45,6 +45,19 @@ app.delete("/task/:id", async (req, res) => {
     }
 })
 
+app.delete("/task/deleteAll", async (req, res) => {
+    try {
+        const deleteTask = await prisma.todo.deleteMany()
+        if (deleteTask.count === 0) {
+            return res.status(404).json({message: "No tasks to delete"})
+        }
+        res.status(200).json(deleteTask)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message: "Internal server error"})
+    }
+})
+
 app.patch("/task/:id", async(req, res) => {
     try {
         await prisma.todo.update({
