@@ -45,7 +45,7 @@ app.delete("/task/:id", async (req, res) => {
     }
 })
 
-app.put("/task/:id", async(req, res) => {
+app.patch("/task/:id", async(req, res) => {
     try {
         await prisma.todo.update({
             where: {
